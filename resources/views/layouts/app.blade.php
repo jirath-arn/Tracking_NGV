@@ -52,8 +52,8 @@
                 <!-- Right Side Of Navbar -->
                 <div class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    <li><a href="{{ url('/login') }}">TH</a></li>
-                    <li><a href="{{ url('/register') }}">EN</a></li>
+                    <li><a href="{{ url('/th') }}">TH</a></li>
+                    <li><a href="{{ url('/en') }}">EN</a></li>
                 </div>
             </div>
         </div>

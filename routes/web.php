@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return redirect('/th');
+});
+
+Route::get('/th', function(){
+    return view('welcome');
+});
+
+Route::get('/en', function(){
     return view('welcome');
 });
