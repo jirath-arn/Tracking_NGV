@@ -8,16 +8,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron">
-                        <form action="#">
+                        <form action="{{ url('/search') }}" method="GET">
                             <!-- logo Thammasat
                             <img class="mb-4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Emblem_of_Thammasat_University.svg/1200px-Emblem_of_Thammasat_University.svg.png" alt="" width="100" height="100"><br><br>
                             -->
 
                             <label for="currentPosition">Current position :</label>
-                            <input type="text" id="currentPosition" class="form-control" placeholder="Current position" required autofocus><br>
+                            <input type="text" id="currentPosition" name="currentPosition" class="form-control" placeholder="Current position" required autofocus><br>
                             
                             <label for="destination">Destination :</label>
-                            <input type="text" id="destination" class="form-control" placeholder="Destination" required><br>
+                            <input type="text" id="destination" name="destination" class="form-control" placeholder="Destination" required><br>
                             
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
                         </form>

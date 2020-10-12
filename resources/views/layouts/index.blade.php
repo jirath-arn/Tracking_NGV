@@ -25,6 +25,7 @@
         }
     </style>
 </head>
+
 <body id="app-layout">
     <nav class="navbar navbar-default">
         <div class="container">
@@ -50,9 +51,18 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <div class="nav navbar-nav navbar-right">
-                    <li><a href="https://tu.ac.th/" target="_blank">Thammasat</a></li>
-                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Menu <span class="caret"></span>
+                        </a>
+                        
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('https://tu.ac.th/') }}" target="_blank">Thammasat</a></li>
+                            <li><a href="{{ url('#') }}">Bus type</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
