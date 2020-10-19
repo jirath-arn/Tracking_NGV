@@ -21,3 +21,7 @@ Route::get('/', function () {
 Route::get('/search', function() {
     return view('search');
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
