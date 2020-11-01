@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('search');
 });
 
-Auth::routes();
+Route::get('/search', function () {
+    return view('search');
+});
 
+//Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
