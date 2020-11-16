@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BusController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,4 +23,10 @@ Route::get('/search', function () {
 
 //Auth::routes();
 Auth::routes(['register' => false]);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    // Buses
+    Route::resource('buses', BusController::class);
+});
