@@ -56,9 +56,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('buses.index') }}">Buses</a>
-
+                                    <a class="dropdown-item" href="{{ route('buses.index') }}">NGV Bus</a>
+                                    <a class="dropdown-item" href="{{ route('buses.index') }}">Route</a>
+                                    <a class="dropdown-item" href="{{ route('buses.index') }}">Bus Stop</a>
                                     
+                                    <div role="none" class="dropdown-divider"></div>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
