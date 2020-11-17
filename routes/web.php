@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\BusController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,21 +15,15 @@ use App\Http\Controllers\BusController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::redirect('/', '/search');
 
-Route::get('/', function () {
-    return view('search');
-});
+Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-Route::get('/search', function () {
-    return view('search');
-});
-
-//Auth::routes();
 Auth::routes(['register' => false]);
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    // Buses
+    // ngvBuses
     Route::resource('buses', BusController::class);
 });

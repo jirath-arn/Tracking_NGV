@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Buses</h2>
+                <h2>NGV Buses</h2>
             </div>
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('buses.create') }}">Create Bus</a>
+                <a class="btn btn-success" href="{{ route('buses.create') }}">Create NGV Bus</a>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
             <td>{{ $bus->ngv_number }}</td>
             <td>{{ $bus->license_plate }}</td>
             <td>
-                <form action="{{ route('buses.destroy',$bus->id) }}" method="Post">
+                <form action="{{ route('buses.destroy', $bus->id ) }}" method="Post">
                     <a class="btn btn-primary" href="{{ route('buses.edit',$bus->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
