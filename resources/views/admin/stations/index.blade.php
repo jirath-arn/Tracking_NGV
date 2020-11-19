@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>NGV Buses</h2>
+                <h2>Stations</h2>
             </div>
             <div class="pull-right mb-3">
-                <a class="btn btn-success" href="{{ route('admin.buses.create') }}">Create NGV Bus</a>
+                <a class="btn btn-success" href="{{ route('admin.stations.create') }}">Create Station</a>
             </div>
         </div>
     </div>
@@ -22,19 +22,21 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>NGV Number</th>
-            <th>License Plate</th>
+            <th>Name Station</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
             <th width="280px">Action</th>
         </tr>
         
-        @foreach ($buses as $bus)
+        @foreach ($stations as $station)
         <tr>
-            <td>{{ $bus->id }}</td>
-            <td>{{ $bus->ngv_number }}</td>
-            <td>{{ $bus->license_plate }}</td>
+            <td>{{ $station->id }}</td>
+            <td>{{ $station->name_station }}</td>
+            <td>{{ $station->latitude }}</td>
+            <td>{{ $station->longitude }}</td>
             <td>
-                <form action="{{ route('admin.buses.destroy', $bus->id ) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('admin.buses.edit', $bus->id) }}">Edit</a>
+                <form action="{{ route('admin.stations.destroy', $station->id ) }}" method="Post">
+                    <a class="btn btn-primary" href="{{ route('admin.stations.edit', $station->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger ml-2">Delete</button>
@@ -44,6 +46,6 @@
         @endforeach
         
     </table>
-    {!! $buses->links() !!}
+    {!! $stations->links() !!}
 </div>
 @endsection

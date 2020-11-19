@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBusesTable extends Migration
+class CreateStationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateBusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('buses', function (Blueprint $table) {
+        Schema::create('stations', function (Blueprint $table) {
             $table->id();
-            $table->string('ngv_number');
-            $table->string('license_plate')->unique();
+            $table->string('name_station')->unique();
+            $table->decimal('latitude', 9, 6);
+            $table->decimal('longitude', 9, 6);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateBusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buses');
+        Schema::dropIfExists('stations');
     }
 }
