@@ -16,12 +16,15 @@ use App\Http\Controllers\SearchController;
 |
 */
 Route::redirect('/', '/search');
+Route::redirect('/home', '/admin/home');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Auth::routes(['register' => false]);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    Route::redirect('/', '/admin/home');
+    
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // ngvBuses
