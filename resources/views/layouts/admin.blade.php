@@ -56,9 +56,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('buses.index') }}">NGV Buses</a>
-                                    <a class="dropdown-item" href="{{ route('buses.index') }}">Routes</a>
-                                    <a class="dropdown-item" href="{{ route('buses.index') }}">Bus Stops</a>
+                                    <a class="dropdown-item" href="{{ url('/home') }}">Dashboards</a>
+
+                                    <div role="none" class="dropdown-divider"></div>
+
+                                    <a class="dropdown-item" href="{{ route('admin.buses.index') }}">NGV Buses</a>
+                                    <a class="dropdown-item" href="{{ route('admin.buses.index') }}">Routes</a>
+                                    <a class="dropdown-item" href="{{ route('admin.buses.index') }}">Stations</a>
                                     
                                     <div role="none" class="dropdown-divider"></div>
 

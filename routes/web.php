@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\BusController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Admin\BusController;
+use App\Http\Controllers\Admin\DashboardController;
+
+use App\Http\Controllers\Client\SearchController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,18 +17,21 @@ use App\Http\Controllers\SearchController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::redirect('/', '/search');
-Route::redirect('/home', '/admin/home');
 
-Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::redirect('/', '/search');
+Route::redirect('/home', '/admin/dashboards');
+
+// Search
+Route::get('/search', [SearchController::class, 'index']);
 
 Auth::routes(['register' => false]);
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-    Route::redirect('/', '/admin/home');
-    
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    Route::redirect('/', '/admin/dashboards');
 
-    // ngvBuses
+    // Dashboards
+    Route::get('/dashboards', [DashboardController::class, 'index']);
+
+    // Buses
     Route::resource('buses', BusController::class);
 });

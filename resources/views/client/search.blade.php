@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.client')
 
 @section('content')
 <div class="container"> <!-- class="container text-center" -->

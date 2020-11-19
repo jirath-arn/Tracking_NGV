@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
@@ -13,6 +14,6 @@ class SearchController extends Controller
      */
     public function index()
     {
-        return view('search');
+        return view('client.search');
     }
 }

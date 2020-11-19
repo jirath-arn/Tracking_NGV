@@ -1,14 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-2">
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left mb-2">
-                <h2>Add NGV Bus</h2>
+            <div class="pull-left">
+                <h2>Edit NGV Bus</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('buses.index') }}">Back</a>
+                <a class="btn btn-primary" href="{{ route('admin.buses.index') }}" enctype="multipart/form-data">Back</a>
             </div>
         </div>
     </div>
@@ -19,14 +19,15 @@
         </div>
     @endif
 
-    <form action="{{ route('buses.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.buses.update',$bus->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>NGV Number:</strong>
-                    <input type="text" name="ngv_number" class="form-control" placeholder="NGV Number">
-                    
+                    <input type="text" name="ngv_number" value="{{ $bus->ngv_number }}" class="form-control" placeholder="NGV Number">
+
                     @error('ngv_number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
@@ -36,8 +37,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>License Plate:</strong>
-                    <input type="text" name="license_plate" class="form-control" placeholder="License Plate">
-                    
+                    <input type="text" name="license_plate" class="form-control" placeholder="License Plate" value="{{ $bus->license_plate }}">
+
                     @error('license_plate')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror

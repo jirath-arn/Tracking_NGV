@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-2">
@@ -8,7 +8,7 @@
                 <h2>NGV Buses</h2>
             </div>
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('buses.create') }}">Create NGV Bus</a>
+                <a class="btn btn-success" href="{{ route('admin.buses.create') }}">Create NGV Bus</a>
             </div>
         </div>
     </div>
@@ -33,8 +33,8 @@
             <td>{{ $bus->ngv_number }}</td>
             <td>{{ $bus->license_plate }}</td>
             <td>
-                <form action="{{ route('buses.destroy', $bus->id ) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('buses.edit',$bus->id) }}">Edit</a>
+                <form action="{{ route('admin.buses.destroy', $bus->id ) }}" method="Post">
+                    <a class="btn btn-primary" href="{{ route('admin.buses.edit', $bus->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

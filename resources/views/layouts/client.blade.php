@@ -52,7 +52,7 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url('#') }}">Bus NGV</a></li>
+                    <li><a href="{{ url('#') }}">NGV Bus</a></li>
                     <li><a href="{{ url('https://tu.ac.th/') }}" target="_blank">Thammasat</a></li>
                 </ul>
             </div>
