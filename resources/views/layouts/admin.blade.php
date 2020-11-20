@@ -61,7 +61,7 @@
                                     <div role="none" class="dropdown-divider"></div>
 
                                     <a class="dropdown-item" href="{{ route('admin.buses.index') }}">NGV Buses</a>
-                                    <a class="dropdown-item" href="{{ route('admin.buses.index') }}">Routes</a>
+                                    <a class="dropdown-item" href="{{ route('admin.routes.index') }}">Routes</a>
                                     <a class="dropdown-item" href="{{ route('admin.stations.index') }}">Stations</a>
                                     
                                     <div role="none" class="dropdown-divider"></div>
