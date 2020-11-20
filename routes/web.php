@@ -21,8 +21,12 @@ Route::get('/search', function () {
     return view('search');
 });
 
+<<<<<<< Updated upstream
 //Auth::routes();
 Auth::routes(['register' => false]);
+=======
+Auth::routes(['register' => true]);
+>>>>>>> Stashed changes
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
