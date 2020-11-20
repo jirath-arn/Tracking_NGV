@@ -23,6 +23,7 @@
         .fa-btn {
             margin-right: 6px;
         }
+        
     </style>
 </head>
 
@@ -66,4 +67,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
+
 </html>

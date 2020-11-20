@@ -25,7 +25,9 @@ Route::redirect('/home', '/admin/dashboards');
 // Search
 Route::get('/search', [SearchController::class, 'index']);
 
+
 Auth::routes(['register' => false]);
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/admin/dashboards');

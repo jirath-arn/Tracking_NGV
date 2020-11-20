@@ -71,12 +71,82 @@
                     <div class="panel-heading">Map of Thammasat</div>
 
                     <div class="panel-body">
-                        <p align="center"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3870.1303009669746!2d100.6011034143148!3d14.069481993644184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e27fecb1e8d73f%3A0xe114a07c97a9a674!2sThammasat%20University%20Rangsit%20Center!5e0!3m2!1sen!2sth!4v1600868954806!5m2!1sen!2sth" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></p>
-                    
+                        <div id="map"  style="height: 450px;" >
+
+                        </div>
                     </div>
                 </div>
             </div>    
         </div>
     </div>
 </div>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2A49QewskHrrRb0FnHIVLTRYMcEHQHT4&callback=initMap&libraries=&v=weekly"
+        defer>
+    </script>
+    <script>
+    var map;
+
+    var position = {
+        lat: 14.06951825716126, 
+        lng: 100.60329490762967
+    }
+    var locations = [
+        ["คณะวิศวกรรมศาสตร์", 14.067428, 100.605844],
+        ["คณะวารสาร(JC)", 14.067506, 100.604850],
+        ["อาคารเรียนรวม SC", 14.069552, 100.601710]
+    ];
+
+    var json_locations = [
+        {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
+        {"location":"คณะวารสาร(JC)","lat": 14.067506,"lng": 100.604850}
+    ]
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: position,
+            zoom: 15,
+            // mapTyped: google.maps.MapTypeId.TERRAIN
+        });
+        // var marker, i, info;
+        
+        // for (i = 0; i < json_locations.length; i++) {
+        //     console.log(json_locations[i].location);
+        //     marker = new google.maps.Marker({
+        //         position: new google.maps.LatLng(json_locations[i].lat, locations[i].lng),
+        //         map: map,
+        //         icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        //     });
+        //     info = new google.maps.InfoWindow();
+        //     google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        //         return function() {
+        //             info.setContent(json_locations[i].location);
+        //             info.open(map, marker);
+        //         }
+        //     })(marker, i));
+        // }
+
+        var marker , info;
+        $.each(json_locations,function(i,item){
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(item.lat,item.lng),
+                map:map,
+                icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+            });
+            info = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    info.setContent(item.location);
+                    info.open(map, marker);
+                }
+            })(marker, i));
+        })
+
+
+    }
+
+
+    </script>
+  
+
 @endsection
