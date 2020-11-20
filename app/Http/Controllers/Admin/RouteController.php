@@ -15,7 +15,7 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $data['routes'] = Route::orderBy('id','desc')->paginate(5);
+        $data['routes'] = Route::orderBy('id', 'desc')->paginate(5);
         return view('admin.routes.index', $data);
     }
 
@@ -24,12 +24,12 @@ class RouteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
-     public function create()
-     {
-         return view('admin.routes.create');
+
+    public function create()
+    {
+        return view('admin.routes.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -46,9 +46,9 @@ class RouteController extends Controller
         $route->name_route = $request->name_route;
         $route->order_of_bus = $request->order_of_bus;
         $route->save();
-        return redirect()->route('admin.routes.index')->with('success','Route has been created successfully.');
+        return redirect()->route('admin.routes.index')->with('success', 'Route has been created successfully.');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -57,9 +57,9 @@ class RouteController extends Controller
      */
     public function show(Route $route)
     {
-        return view('admin.routes.show',compact('route'));
+        return view('admin.routes.show', compact('route'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -68,9 +68,9 @@ class RouteController extends Controller
      */
     public function edit(Route $route)
     {
-        return view('admin.routes.edit',compact('route'));
+        return view('admin.routes.edit', compact('route'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -88,9 +88,9 @@ class RouteController extends Controller
         $route->name_route = $request->name_route;
         $route->order_of_bus = $request->order_of_bus;
         $route->save();
-        return redirect()->route('admin.routes.index')->with('success','Route has been updated successfully.');
+        return redirect()->route('admin.routes.index')->with('success', 'Route has been updated successfully.');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -100,6 +100,6 @@ class RouteController extends Controller
     public function destroy(Route $route)
     {
         $route->delete();
-        return redirect()->route('admin.routes.index')->with('success','Route has been deleted successfully.');
+        return redirect()->route('admin.routes.index')->with('success', 'Route has been deleted successfully.');
     }
 }

@@ -44,4 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Stations
     Route::resource('stations', StationController::class);
+
+    // Location for Map
+    Route::resource('location', SearchController::class);
 });

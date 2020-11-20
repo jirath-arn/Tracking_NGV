@@ -96,6 +96,9 @@
         ["คณะวารสาร(JC)", 14.067506, 100.604850],
         ["อาคารเรียนรวม SC", 14.069552, 100.601710]
     ];
+    var db_stations = [
+        
+    ]
 
     var json_locations = [
         {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
@@ -125,6 +128,7 @@
         //         }
         //     })(marker, i));
         // }
+
 
         var marker , info;
         $.each(json_locations,function(i,item){
