@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Station;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PhpParser\Node\Stmt\Echo_;
 
 class StationController extends Controller
 {
@@ -16,7 +17,12 @@ class StationController extends Controller
     public function index()
     {
         $data['stations'] = Station::orderBy('id', 'desc')->paginate(5);
+<<<<<<< Updated upstream
         return view('admin.stations.index', $data);
+=======
+
+        return view('admin.stations.index', $data) , view('client.search', $data);
+>>>>>>> Stashed changes
     }
 
     /**

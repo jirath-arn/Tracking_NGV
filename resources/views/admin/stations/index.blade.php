@@ -44,8 +44,13 @@
                     <button type="submit" class="btn btn-danger ml-2">Delete</button>
                 </form>
             </td>
+            
+         
         </tr>
+    
         @endforeach
+       
+        
         
     </table>
     {!! $stations->links() !!}
