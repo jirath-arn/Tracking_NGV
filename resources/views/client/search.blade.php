@@ -18,6 +18,7 @@
                                 } else {
                                     $selectedCurrent = "";
                                 }
+                                
 
                                 if(isset($_GET['destination'])) {
                                     $selectedDestination = $_GET['destination'];
@@ -57,7 +58,7 @@
                         <h4 class="h4 mb-3 font-weight-normal">List of bus</h4><br>
 
                         <div class="text-center">
-                            No data
+                            No data 
                         </div>
                     </div>
                 </div>
@@ -67,9 +68,10 @@
         <!-- item right -->
         <div class="col col-lg-8">
             <div class="jumbotron">
+                <?php echo  $stations; ?>
                 <div class="panel panel-default">
                     <div class="panel-heading">Map of Thammasat</div>
-
+                    
                     <div class="panel-body">
                         <div id="map"  style="height: 450px;" >
 
@@ -91,14 +93,12 @@
         lat: 14.06951825716126, 
         lng: 100.60329490762967
     }
-    var locations = [
-        ["คณะวิศวกรรมศาสตร์", 14.067428, 100.605844],
-        ["คณะวารสาร(JC)", 14.067506, 100.604850],
-        ["อาคารเรียนรวม SC", 14.069552, 100.601710]
-    ];
-    var db_stations = [
-        
-    ]
+    // var locations = [
+    //     ["คณะวิศวกรรมศาสตร์", 14.067428, 100.605844],
+    //     ["คณะวารสาร(JC)", 14.067506, 100.604850],
+    //     ["อาคารเรียนรวม SC", 14.069552, 100.601710]
+    // ];
+    
 
     var json_locations = [
         {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
@@ -148,9 +148,12 @@
 
 
     }
+    var db_stations = this.stations ;
+    console.log(db_stations);
 
 
     </script>
+    
   
 
 @endsection

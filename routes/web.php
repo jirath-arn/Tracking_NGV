@@ -24,7 +24,10 @@ Route::redirect('/', '/search');
 Route::redirect('/home', '/admin/dashboards');
 
 // Search
-Route::get('/search', [SearchController::class, 'index']);
+Route::get('/search', [SearchController::class, 'map_location']);
+
+// Location for Map
+
 
 
 Auth::routes(['register' => false]);
@@ -44,7 +47,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Stations
     Route::resource('stations', StationController::class);
-
-    // Location for Map
-    Route::resource('location', SearchController::class);
 });

@@ -20,7 +20,7 @@ class SearchController extends Controller
 
     public function map_location()
     {
-        $data['location'] = Station::orderBy('id', 'desc')->paginate(5);
+        $data['stations'] = Station::orderBy('id', 'desc')->paginate(5);
         return view('client.search', $data);
     }
 }
