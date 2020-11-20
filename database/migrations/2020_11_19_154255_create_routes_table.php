@@ -15,6 +15,8 @@ class CreateRoutesTable extends Migration
     {
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
+            $table->string('name_route')->unique();
+            $table->json('order_of_bus');
             $table->timestamps();
         });
     }

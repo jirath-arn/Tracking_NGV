@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\BusController;
+use App\Http\Controllers\Admin\RouteController;
 use App\Http\Controllers\Admin\StationController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -37,6 +38,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Buses
     Route::resource('buses', BusController::class);
+
+    // Routes
+    Route::resource('routes', RouteController::class);
 
     // Stations
     Route::resource('stations', StationController::class);
