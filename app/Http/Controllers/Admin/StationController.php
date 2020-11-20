@@ -15,8 +15,14 @@ class StationController extends Controller
      */
     public function index()
     {
-        $data['stations'] = Station::orderBy('id','desc')->paginate(5);
+        $data['stations'] = Station::orderBy('id', 'desc')->paginate(5);
         return view('admin.stations.index', $data);
+    }
+
+    public function map_station()
+    {
+        $data['stations'] = Station::orderBy('id', 'desc')->paginate(5);
+        return view('client.search', $data);
     }
 
     /**
@@ -24,12 +30,12 @@ class StationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
-     public function create()
-     {
-         return view('admin.stations.create');
+
+    public function create()
+    {
+        return view('admin.stations.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,9 +54,9 @@ class StationController extends Controller
         $station->latitude = $request->latitude;
         $station->longitude = $request->longitude;
         $station->save();
-        return redirect()->route('admin.stations.index')->with('success','Station has been created successfully.');
+        return redirect()->route('admin.stations.index')->with('success', 'Station has been created successfully.');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -61,7 +67,7 @@ class StationController extends Controller
     {
         return view('admin.stations.show', compact('station'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -72,7 +78,7 @@ class StationController extends Controller
     {
         return view('admin.stations.edit', compact('station'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -92,9 +98,9 @@ class StationController extends Controller
         $station->latitude = $request->latitude;
         $station->longitude = $request->longitude;
         $station->save();
-        return redirect()->route('admin.stations.index')->with('success','Station has been updated successfully.');
+        return redirect()->route('admin.stations.index')->with('success', 'Station has been updated successfully.');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -104,6 +110,6 @@ class StationController extends Controller
     public function destroy(Station $station)
     {
         $station->delete();
-        return redirect()->route('admin.stations.index')->with('success','Station has been deleted successfully.');
+        return redirect()->route('admin.stations.index')->with('success', 'Station has been deleted successfully.');
     }
 }
