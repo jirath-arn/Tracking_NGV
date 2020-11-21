@@ -30,7 +30,7 @@
                             <select id="currentPosition" name="currentPosition" class="form-control" required autofocus>
                                 <option value="" disabled selected hidden>Please Choose...</option>
                                 @foreach ($stations as $item)
-                                    <option value= "{{$item->name_station}}" <?php if($selectedCurrent == "{{$item->name_station}}" ){ echo("selected"); }?>> {{$item}}</option>
+                                    <option value= "{{$item->name_station}}" <?php if($selectedCurrent == "$item->name_station" ){ echo("selected"); }?>> {{$item->name_station}}</option>
                                 @endforeach
                                
                                 
@@ -40,7 +40,7 @@
                             <select id="destination" name="destination" class="form-control" required>
                                 <option value="" disabled selected hidden>Please Choose...</option>
                                 @foreach ($stations as $item)
-                                    <option value= "{{$item->name_station}}" <?php if($selectedDestination == "{{$item->name_station}}" ){ echo("selected"); }?>> {{$item->name_station}}</option>
+                                    <option value= "{{$item->name_station}}" <?php if($selectedDestination == "$item->name_station" ){ echo("selected"); }?>> {{$item->name_station}}</option>
                                 @endforeach
                             </select><br>
 
@@ -90,8 +90,7 @@
         lng: 100.60329490762967
     }
    
-    var data = '555';
-    console.log(data);
+    
     // var locations = [
     //     ["คณะวิศวกรรมศาสตร์", 14.067428, 100.605844],
     //     ["คณะวารสาร(JC)", 14.067506, 100.604850],
@@ -100,17 +99,23 @@
     
 
     
-
+    // var selectedCurrent = '<?php echo $selectedCurrent ?>';
+    // console.log(selectedCurrent);
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: position,
             zoom: 15,
             // mapTyped: google.maps.MapTypeId.TERRAIN
         });
+
+        // get data from SearchController.php and append to json data
+        var all_stations = JSON.parse( '<?php  echo json_encode($stations) ?>' );
+        // console.log(all_stations.data);
         
         var json_locations = [
             {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
-            {"location":"คณะวารสาร(JC)","lat": 14.067506,"lng": 100.604850}
+            {"location":"คณะวารสาร(JC)","lat": 14.067506,"lng": 100.604850},
+            {"location":"คณะวิทยาศาสตร์ ( บร.2)","lat": 14.072163,"lng": 100.606094}
         ]
         
 
@@ -134,25 +139,29 @@
 
 
         var marker , info;
-        $.each(json_locations,function(i,item){
+        $.each(all_stations.data,function(i,item){
+            // console.log(item);
+    
             marker = new google.maps.Marker({
-                position: new google.maps.LatLng(item.lat,item.lng),
+                
+                position: new google.maps.LatLng(item.latitude,item.longitude),
                 map:map,
                 icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
             });
             info = new google.maps.InfoWindow();
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
-                    info.setContent(item.location);
+                    info.setContent(item.name_station);
                     info.open(map, marker);
                 }
             })(marker, i));
-        })
+        });
         
 
 
     }
    
+    
     
     // var db_stations = stations ;
     // console.log(db_stations);
@@ -160,6 +169,7 @@
     
 
     </script>
+    
     
   
 
