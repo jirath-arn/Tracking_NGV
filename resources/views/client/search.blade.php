@@ -18,7 +18,6 @@
                                 } else {
                                     $selectedCurrent = "";
                                 }
-                                
 
                                 if(isset($_GET['destination'])) {
                                     $selectedDestination = $_GET['destination'];
@@ -26,27 +25,23 @@
                                     $selectedDestination = "";
                                 } 
                             ?>
-
+                           
                             <label for="currentPosition">Current position :</label>
                             <select id="currentPosition" name="currentPosition" class="form-control" required autofocus>
                                 <option value="" disabled selected hidden>Please Choose...</option>
-                                <option value="คณะวิศวกรรมศาสตร์" <?php if($selectedCurrent == 'คณะวิศวกรรมศาสตร์'){echo("selected");}?>>คณะวิศวกรรมศาสตร์</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.1)" <?php if($selectedCurrent == 'คณะวิทยาศาสตร์ (บร.1)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.1)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.2)" <?php if($selectedCurrent == 'คณะวิทยาศาสตร์ (บร.2)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.2)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.3)" <?php if($selectedCurrent == 'คณะวิทยาศาสตร์ (บร.3)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.3)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.4)" <?php if($selectedCurrent == 'คณะวิทยาศาสตร์ (บร.4)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.4)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.5)" <?php if($selectedCurrent == 'คณะวิทยาศาสตร์ (บร.5)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.5)</option>
+                                @foreach ($stations as $item)
+                                    <option value= "{{$item->name_station}}" <?php if($selectedCurrent == "{{$item->name_station}}" ){ echo("selected"); }?>> {{$item}}</option>
+                                @endforeach
+                               
+                                
                             </select><br>
                             
                             <label for="destination">Destination :</label>
                             <select id="destination" name="destination" class="form-control" required>
                                 <option value="" disabled selected hidden>Please Choose...</option>
-                                <option value="คณะวิศวกรรมศาสตร์" <?php if($selectedDestination == 'คณะวิศวกรรมศาสตร์'){echo("selected");}?>>คณะวิศวกรรมศาสตร์</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.1)" <?php if($selectedDestination == 'คณะวิทยาศาสตร์ (บร.1)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.1)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.2)" <?php if($selectedDestination == 'คณะวิทยาศาสตร์ (บร.2)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.2)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.3)" <?php if($selectedDestination == 'คณะวิทยาศาสตร์ (บร.3)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.3)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.4)" <?php if($selectedDestination == 'คณะวิทยาศาสตร์ (บร.4)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.4)</option>
-                                <option value="คณะวิทยาศาสตร์ (บร.5)" <?php if($selectedDestination == 'คณะวิทยาศาสตร์ (บร.5)'){echo("selected");}?>>คณะวิทยาศาสตร์ (บร.5)</option>
+                                @foreach ($stations as $item)
+                                    <option value= "{{$item->name_station}}" <?php if($selectedDestination == "{{$item->name_station}}" ){ echo("selected"); }?>> {{$item->name_station}}</option>
+                                @endforeach
                             </select><br>
 
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
@@ -68,7 +63,7 @@
         <!-- item right -->
         <div class="col col-lg-8">
             <div class="jumbotron">
-                <?php echo  $stations; ?>
+                
                 <div class="panel panel-default">
                     <div class="panel-heading">Map of Thammasat</div>
                     
@@ -87,12 +82,16 @@
         defer>
     </script>
     <script>
+                     
     var map;
 
     var position = {
         lat: 14.06951825716126, 
         lng: 100.60329490762967
     }
+   
+    var data = '555';
+    console.log(data);
     // var locations = [
     //     ["คณะวิศวกรรมศาสตร์", 14.067428, 100.605844],
     //     ["คณะวารสาร(JC)", 14.067506, 100.604850],
@@ -100,10 +99,7 @@
     // ];
     
 
-    var json_locations = [
-        {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
-        {"location":"คณะวารสาร(JC)","lat": 14.067506,"lng": 100.604850}
-    ]
+    
 
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -111,6 +107,13 @@
             zoom: 15,
             // mapTyped: google.maps.MapTypeId.TERRAIN
         });
+        
+        var json_locations = [
+            {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
+            {"location":"คณะวารสาร(JC)","lat": 14.067506,"lng": 100.604850}
+        ]
+        
+
         // var marker, i, info;
         
         // for (i = 0; i < json_locations.length; i++) {
@@ -145,12 +148,16 @@
                 }
             })(marker, i));
         })
+        
 
 
     }
-    var db_stations = this.stations ;
-    console.log(db_stations);
-
+   
+    
+    // var db_stations = stations ;
+    // console.log(db_stations);
+    
+    
 
     </script>
     
