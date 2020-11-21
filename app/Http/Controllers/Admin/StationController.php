@@ -15,7 +15,7 @@ class StationController extends Controller
      */
     public function index()
     {
-        $data['stations'] = Station::orderBy('id', 'desc')->paginate(5);
+        $data['stations'] = Station::orderBy('id', 'desc')->paginate();
         return view('admin.stations.index', $data);
     }
 

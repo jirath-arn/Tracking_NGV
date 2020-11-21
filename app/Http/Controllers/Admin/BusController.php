@@ -15,7 +15,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        $data['buses'] = Bus::orderBy('id','desc')->paginate(5);
+        $data['buses'] = Bus::orderBy('id', 'desc')->paginate();
         return view('admin.buses.index', $data);
     }
 
@@ -24,12 +24,12 @@ class BusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
-     public function create()
-     {
-         return view('admin.buses.create');
+
+    public function create()
+    {
+        return view('admin.buses.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -46,9 +46,9 @@ class BusController extends Controller
         $bus->ngv_number = $request->ngv_number;
         $bus->license_plate = $request->license_plate;
         $bus->save();
-        return redirect()->route('admin.buses.index')->with('success','Bus has been created successfully.');
+        return redirect()->route('admin.buses.index')->with('success', 'Bus has been created successfully.');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -57,9 +57,9 @@ class BusController extends Controller
      */
     public function show(Bus $bus)
     {
-        return view('admin.buses.show',compact('bus'));
+        return view('admin.buses.show', compact('bus'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -68,9 +68,9 @@ class BusController extends Controller
      */
     public function edit(Bus $bus)
     {
-        return view('admin.buses.edit',compact('bus'));
+        return view('admin.buses.edit', compact('bus'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -88,9 +88,9 @@ class BusController extends Controller
         $bus->ngv_number = $request->ngv_number;
         $bus->license_plate = $request->license_plate;
         $bus->save();
-        return redirect()->route('admin.buses.index')->with('success','Bus has been updated successfully.');
+        return redirect()->route('admin.buses.index')->with('success', 'Bus has been updated successfully.');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -100,6 +100,6 @@ class BusController extends Controller
     public function destroy(Bus $bus)
     {
         $bus->delete();
-        return redirect()->route('admin.buses.index')->with('success','Bus has been deleted successfully.');
+        return redirect()->route('admin.buses.index')->with('success', 'Bus has been deleted successfully.');
     }
 }
