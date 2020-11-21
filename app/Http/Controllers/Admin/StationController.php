@@ -19,11 +19,7 @@ class StationController extends Controller
         return view('admin.stations.index', $data);
     }
 
-    public function map_station()
-    {
-        $data['stations'] = Station::orderBy('id', 'desc')->paginate(5);
-        return view('client.search', $data);
-    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -24,7 +24,10 @@ Route::redirect('/', '/search');
 Route::redirect('/home', '/admin/dashboards');
 
 // Search
-Route::get('/search', [SearchController::class, 'index']);
+Route::get('/search', [SearchController::class, 'map_location']);
+
+// Location for Map
+
 
 
 Auth::routes(['register' => false]);
