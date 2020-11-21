@@ -39,7 +39,9 @@
                             <label for="destination">Destination :</label>
                             <select id="destination" name="destination" class="form-control" required>
                                 <option value="" disabled selected hidden>Please Choose...</option>
+                                
                                 @foreach ($stations as $item)
+                    
                                     <option value= "{{$item->name_station}}" <?php if($selectedDestination == "$item->name_station" ){ echo("selected"); }?>> {{$item->name_station}}</option>
                                 @endforeach
                             </select><br>
@@ -53,7 +55,7 @@
                         <h4 class="h4 mb-3 font-weight-normal">List of bus</h4><br>
 
                         <div class="text-center">
-                            No data 
+                            No data
                         </div>
                     </div>
                 </div>
@@ -110,7 +112,8 @@
 
         // get data from SearchController.php and append to json data
         var all_stations = JSON.parse( '<?php  echo json_encode($stations) ?>' );
-        // console.log(all_stations.data);
+    
+       console.log(all_stations);
         
         var json_locations = [
             {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
@@ -141,7 +144,6 @@
         var marker , info;
         $.each(all_stations.data,function(i,item){
             // console.log(item);
-    
             marker = new google.maps.Marker({
                 
                 position: new google.maps.LatLng(item.latitude,item.longitude),
