@@ -99,8 +99,8 @@
     
 
     
-    // var selectedCurrent = '<?php echo $selectedCurrent ?>';
-    // console.log(selectedCurrent);
+   
+    
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: position,
@@ -137,24 +137,42 @@
         //     })(marker, i));
         // }
 
-
+        var selectedCurrent = '<?php echo $selectedCurrent ?>';
+        var selectedDestination = '<?php echo $selectedDestination ?>';
         var marker , info;
         $.each(all_stations.data,function(i,item){
-            // console.log(item);
-    
-            marker = new google.maps.Marker({
+            console.log(item.name_station);
+            if( item.name_station === selectedCurrent ){
+                marker = new google.maps.Marker({
+                     position: new google.maps.LatLng(item.latitude,item.longitude),
+                     map:map,
+                     
+                });
                 
-                position: new google.maps.LatLng(item.latitude,item.longitude),
-                map:map,
-                icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-            });
+            }else if( item.name_station === selectedDestination){
+                marker = new google.maps.Marker({
+                     position: new google.maps.LatLng(item.latitude,item.longitude),
+                     map:map,
+                     icon:"https://www.gstatic.com/images/icons/material/system_gm/2x/place_gm_blue_24dp.png"
+                     
+                });
+                
+            }else{
+                 marker = new google.maps.Marker({
+                     position: new google.maps.LatLng(item.latitude,item.longitude),
+                     map:map,
+                     icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                     
+                });
+
+            }
             info = new google.maps.InfoWindow();
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    info.setContent(item.name_station);
-                    info.open(map, marker);
-                }
-            })(marker, i));
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        info.setContent(item.name_station);
+                        info.open(map, marker);
+                    }
+                })(marker, i));
         });
         
 
