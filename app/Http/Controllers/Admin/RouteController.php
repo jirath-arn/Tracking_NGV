@@ -15,7 +15,7 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $data['routes'] = Route::orderBy('id', 'desc')->paginate(5);
+        $data['routes'] = Route::orderBy('id', 'desc')->paginate();
         return view('admin.routes.index', $data);
     }
 

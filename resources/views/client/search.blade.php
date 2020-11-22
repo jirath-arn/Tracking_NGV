@@ -30,17 +30,15 @@
                             <select id="currentPosition" name="currentPosition" class="form-control" required autofocus>
                                 <option value="" disabled selected hidden>Please Choose...</option>
                                 @foreach ($stations as $item)
-                                    <option value= "{{$item->name_station}}" <?php if($selectedCurrent == "$item->name_station" ){ echo("selected"); }?>> {{$item->name_station}}</option>
+                                    <option value="{{$item->name_station}}" <?php if($selectedCurrent == "$item->name_station") { echo("selected"); }?>>{{ $item->name_station }}</option>
                                 @endforeach
-                               
-                                
                             </select><br>
                             
                             <label for="destination">Destination :</label>
                             <select id="destination" name="destination" class="form-control" required>
                                 <option value="" disabled selected hidden>Please Choose...</option>
                                 @foreach ($stations as $item)
-                                    <option value= "{{$item->name_station}}" <?php if($selectedDestination == "$item->name_station" ){ echo("selected"); }?>> {{$item->name_station}}</option>
+                                    <option value="{{$item->name_station}}" <?php if($selectedDestination == "$item->name_station") { echo("selected"); }?>>{{ $item->name_station }}</option>
                                 @endforeach
                             </select><br>
 
@@ -53,7 +51,7 @@
                         <h4 class="h4 mb-3 font-weight-normal">List of bus</h4><br>
 
                         <div class="text-center">
-                            No data 
+                            No data
                         </div>
                     </div>
                 </div>
@@ -68,8 +66,8 @@
                     <div class="panel-heading">Map of Thammasat</div>
                     
                     <div class="panel-body">
-                        <div id="map"  style="height: 450px;" >
-
+                        <div id="map" style="height: 450px;">
+                        
                         </div>
                     </div>
                 </div>
@@ -77,12 +75,9 @@
         </div>
     </div>
 </div>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2A49QewskHrrRb0FnHIVLTRYMcEHQHT4&callback=initMap&libraries=&v=weekly"
-        defer>
-    </script>
-    <script>
-                     
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2A49QewskHrrRb0FnHIVLTRYMcEHQHT4&callback=initMap&libraries=&v=weekly" defer></script>
+<script>
     var map;
 
     var position = {
@@ -90,14 +85,11 @@
         lng: 100.60329490762967
     }
    
-    
     // var locations = [
     //     ["คณะวิศวกรรมศาสตร์", 14.067428, 100.605844],
     //     ["คณะวารสาร(JC)", 14.067506, 100.604850],
     //     ["อาคารเรียนรวม SC", 14.069552, 100.601710]
-    // ];
-    
-
+    // ]; 
     
    
     
@@ -109,9 +101,11 @@
         });
 
         // get data from SearchController.php and append to json data
-        var all_stations = JSON.parse( '<?php  echo json_encode($stations) ?>' );
-        // console.log(all_stations.data);
+        var all_stations = JSON.parse('<?php echo json_encode($stations) ?>');
+    
+        // console.log(all_stations);
         
+
         var json_locations_NGV = [
             {"bus":"NGV 1","lat": 14.070294930845376,"lng": 100.60564690647537},
             {"bus":"NGV 1","lat": 14.06852638916892,"lng": 100.60683365614575},
@@ -174,21 +168,9 @@
                     }
                 })(marker, i));
         });
-        
-
-
     }
    
-    
-    
     // var db_stations = stations ;
     // console.log(db_stations);
-    
-    
-
-    </script>
-    
-    
-  
-
+</script>
 @endsection
