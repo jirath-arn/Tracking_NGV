@@ -15,11 +15,6 @@ class SearchController extends Controller
      */
     public function index()
     {
-        return view('client.search');
-    }
-
-    public function map_location()
-    {
         $data['stations'] = Station::orderBy('id', 'desc')->paginate();
         return view('client.search', $data);
     }

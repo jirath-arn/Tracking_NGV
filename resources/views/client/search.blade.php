@@ -30,19 +30,15 @@
                             <select id="currentPosition" name="currentPosition" class="form-control" required autofocus>
                                 <option value="" disabled selected hidden>Please Choose...</option>
                                 @foreach ($stations as $item)
-                                    <option value= "{{$item->name_station}}" <?php if($selectedCurrent == "$item->name_station" ){ echo("selected"); }?>> {{$item->name_station}}</option>
+                                    <option value="{{$item->name_station}}" <?php if($selectedCurrent == "$item->name_station") { echo("selected"); }?>>{{ $item->name_station }}</option>
                                 @endforeach
-                               
-                                
                             </select><br>
                             
                             <label for="destination">Destination :</label>
                             <select id="destination" name="destination" class="form-control" required>
                                 <option value="" disabled selected hidden>Please Choose...</option>
-                                
                                 @foreach ($stations as $item)
-                    
-                                    <option value= "{{$item->name_station}}" <?php if($selectedDestination == "$item->name_station" ){ echo("selected"); }?>> {{$item->name_station}}</option>
+                                    <option value="{{$item->name_station}}" <?php if($selectedDestination == "$item->name_station") { echo("selected"); }?>>{{ $item->name_station }}</option>
                                 @endforeach
                             </select><br>
 
@@ -70,8 +66,8 @@
                     <div class="panel-heading">Map of Thammasat</div>
                     
                     <div class="panel-body">
-                        <div id="map"  style="height: 450px;" >
-
+                        <div id="map" style="height: 450px;">
+                        
                         </div>
                     </div>
                 </div>
@@ -79,12 +75,9 @@
         </div>
     </div>
 </div>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2A49QewskHrrRb0FnHIVLTRYMcEHQHT4&callback=initMap&libraries=&v=weekly"
-        defer>
-    </script>
-    <script>
-                     
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2A49QewskHrrRb0FnHIVLTRYMcEHQHT4&callback=initMap&libraries=&v=weekly" defer></script>
+<script>
     var map;
 
     var position = {
@@ -92,14 +85,11 @@
         lng: 100.60329490762967
     }
    
-    
     // var locations = [
     //     ["คณะวิศวกรรมศาสตร์", 14.067428, 100.605844],
     //     ["คณะวารสาร(JC)", 14.067506, 100.604850],
     //     ["อาคารเรียนรวม SC", 14.069552, 100.601710]
-    // ];
-    
-
+    // ]; 
     
     // var selectedCurrent = '<?php echo $selectedCurrent ?>';
     // console.log(selectedCurrent);
@@ -111,17 +101,16 @@
         });
 
         // get data from SearchController.php and append to json data
-        var all_stations = JSON.parse( '<?php  echo json_encode($stations) ?>' );
+        var all_stations = JSON.parse('<?php echo json_encode($stations) ?>');
     
-       console.log(all_stations);
+        // console.log(all_stations);
         
-        var json_locations = [
-            {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
-            {"location":"คณะวารสาร(JC)","lat": 14.067506,"lng": 100.604850},
-            {"location":"คณะวิทยาศาสตร์ ( บร.2)","lat": 14.072163,"lng": 100.606094}
-        ]
+        /*var json_locations = [
+            {"location":"คณะวิศวกรรมศาสตร์", "lat": 14.067428, "lng": 100.605844},
+            {"location":"คณะวารสาร(JC)", "lat": 14.067506, "lng": 100.604850},
+            {"location":"คณะวิทยาศาสตร์ ( บร.2)", "lat": 14.072163, "lng": 100.606094}
+        ]*/
         
-
         // var marker, i, info;
         
         // for (i = 0; i < json_locations.length; i++) {
@@ -140,13 +129,12 @@
         //     })(marker, i));
         // }
 
-
-        var marker , info;
-        $.each(all_stations.data,function(i,item){
+        var marker, info;
+        $.each(all_stations.data, function(i, item){
             // console.log(item);
             marker = new google.maps.Marker({
-                
-                position: new google.maps.LatLng(item.latitude,item.longitude),
+
+                position: new google.maps.LatLng(item.latitude, item.longitude),
                 map:map,
                 icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
             });
@@ -158,21 +146,9 @@
                 }
             })(marker, i));
         });
-        
-
-
     }
    
-    
-    
     // var db_stations = stations ;
     // console.log(db_stations);
-    
-    
-
-    </script>
-    
-    
-  
-
+</script>
 @endsection
