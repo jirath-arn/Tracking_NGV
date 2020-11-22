@@ -112,30 +112,30 @@
         var all_stations = JSON.parse( '<?php  echo json_encode($stations) ?>' );
         // console.log(all_stations.data);
         
-        var json_locations = [
-            {"location":"คณะวิศวกรรมศาสตร์","lat": 14.067428,"lng": 100.605844},
-            {"location":"คณะวารสาร(JC)","lat": 14.067506,"lng": 100.604850},
-            {"location":"คณะวิทยาศาสตร์ ( บร.2)","lat": 14.072163,"lng": 100.606094}
+        var json_locations_NGV = [
+            {"bus":"NGV 1","lat": 14.070294930845376,"lng": 100.60564690647537},
+            {"bus":"NGV 1","lat": 14.06852638916892,"lng": 100.60683365614575},
+            {"bus":"NGV 1","lat": 14.072058726732202,"lng": 100.60164202955123}
         ]
         
 
-        // var marker, i, info;
+        var marker, i, info;
         
-        // for (i = 0; i < json_locations.length; i++) {
-        //     console.log(json_locations[i].location);
-        //     marker = new google.maps.Marker({
-        //         position: new google.maps.LatLng(json_locations[i].lat, locations[i].lng),
-        //         map: map,
-        //         icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-        //     });
-        //     info = new google.maps.InfoWindow();
-        //     google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        //         return function() {
-        //             info.setContent(json_locations[i].location);
-        //             info.open(map, marker);
-        //         }
-        //     })(marker, i));
-        // }
+        for (i = 0; i < json_locations_NGV.length; i++) {
+            // console.log(json_locations_NGV[i].bus);
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(json_locations_NGV[i].lat, json_locations_NGV[i].lng),
+                map: map,
+                icon: "http://maps.google.com/mapfiles/kml/pal2/icon47.png"
+            });
+            info = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    info.setContent(json_locations_NGV[i].bus);
+                    info.open(map, marker);
+                }
+            })(marker, i));
+        }
 
         var selectedCurrent = '<?php echo $selectedCurrent ?>';
         var selectedDestination = '<?php echo $selectedDestination ?>';
@@ -153,7 +153,7 @@
                 marker = new google.maps.Marker({
                      position: new google.maps.LatLng(item.latitude,item.longitude),
                      map:map,
-                     icon:"https://www.gstatic.com/images/icons/material/system_gm/2x/place_gm_blue_24dp.png"
+                     icon:"http://maps.google.com/mapfiles/kml/pal2/icon10.png"
                      
                 });
                 
