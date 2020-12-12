@@ -15,9 +15,9 @@ class CreateRoutesStationsTable extends Migration
     {
         Schema::create('routes_stations', function (Blueprint $table) {
             $table->bigInteger('route_id')->unsigned();
-            $table->foreign('route_id')->references('route_id')->on('routes');
+            $table->foreign('route_id')->references('id')->on('routes');
             $table->bigInteger('station_id')->unsigned();
-            $table->foreign('station_id')->references('station_id')->on('stations');
+            $table->foreign('station_id')->references('id')->on('stations');
             $table->integer('order')->unsigned();
         });
     }
