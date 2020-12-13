@@ -26,8 +26,13 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>NGV Number:</strong>
-                    <input type="text" name="ngv_number" class="form-control" placeholder="NGV Number">
-                    
+                    <select name="ngv_number" class="form-control">
+                        <option value="" disabled selected hidden>Please Choose...</option>
+                        @foreach ($routes as $route)
+                            <option value="{{$route->id}}">{{ $route->name_route }}</option>
+                        @endforeach
+                    </select>
+
                     @error('ngv_number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror

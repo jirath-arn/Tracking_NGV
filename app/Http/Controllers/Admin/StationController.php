@@ -19,8 +19,6 @@ class StationController extends Controller
         return view('admin.stations.index', $data);
     }
 
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -41,27 +39,17 @@ class StationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_station' => 'required',
+            'name_station' => 'required|max:255',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
+
         $station = new Station;
         $station->name_station = $request->name_station;
         $station->latitude = $request->latitude;
         $station->longitude = $request->longitude;
         $station->save();
         return redirect()->route('admin.stations.index')->with('success', 'Station has been created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Station  $station
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Station $station)
-    {
-        return view('admin.stations.show', compact('station'));
     }
 
     /**
@@ -85,10 +73,11 @@ class StationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name_station' => 'required',
+            'name_station' => 'required|max:255',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
+        
         $station = Station::find($id);
         $station->name_station = $request->name_station;
         $station->latitude = $request->latitude;

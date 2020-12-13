@@ -20,14 +20,19 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.buses.update',$bus->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.buses.update', $bus->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>NGV Number:</strong>
-                    <input type="text" name="ngv_number" value="{{ $bus->ngv_number }}" class="form-control" placeholder="NGV Number">
+                    <select name="ngv_number" class="form-control">
+                        <option value="" disabled selected hidden>Please Choose...</option>
+                        @foreach ($routes as $route)
+                            <option value="{{$route->id}}" <?php if("$bus->route_id" == "$route->id") { echo("selected"); }?>>{{ $route->name_route }}</option>
+                        @endforeach
+                    </select>
 
                     @error('ngv_number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

@@ -30,7 +30,7 @@
         @foreach ($buses as $bus)
         <tr>
             <td>{{ $bus->id }}</td>
-            <td>{{ $bus->ngv_number }}</td>
+            <td>{{ $bus->route->name_route }}</td>
             <td>{{ $bus->license_plate }}</td>
             <td>
                 <form action="{{ route('admin.buses.destroy', $bus->id ) }}" method="Post">
