@@ -106,26 +106,23 @@
         // console.log(all_stations);
         
 
-        var json_locations_NGV = [
-            {"bus":"NGV 1","lat": 14.070294930845376,"lng": 100.60564690647537},
-            {"bus":"NGV 1","lat": 14.06852638916892,"lng": 100.60683365614575},
-            {"bus":"NGV 1","lat": 14.072058726732202,"lng": 100.60164202955123}
-        ]
+        var json_locations_NGV = JSON.parse('<?php echo json_encode($buses) ?>');
+        // console.log(json_locations_NGV);
         
 
         var marker, i, info;
-        
-        for (i = 0; i < json_locations_NGV.length; i++) {
-            // console.log(json_locations_NGV[i].bus);
+        // console.log(json_locations_NGV.data[0]);
+        for (i = 0; i < json_locations_NGV.data.length; i++) {
+            
             marker = new google.maps.Marker({
-                position: new google.maps.LatLng(json_locations_NGV[i].lat, json_locations_NGV[i].lng),
+                position: new google.maps.LatLng(json_locations_NGV.data[i].latitude, json_locations_NGV.data[i].longitude),
                 map: map,
                 icon: "http://maps.google.com/mapfiles/kml/pal2/icon47.png"
             });
             info = new google.maps.InfoWindow();
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
-                    info.setContent(json_locations_NGV[i].bus);
+                    info.setContent(json_locations_NGV.data[i].license_plate);
                     info.open(map, marker);
                 }
             })(marker, i));
@@ -135,7 +132,7 @@
         var selectedDestination = '<?php echo $selectedDestination ?>';
         var marker , info;
         $.each(all_stations.data,function(i,item){
-            console.log(item.name_station);
+            // console.log(item.name_station);
             if( item.name_station === selectedCurrent ){
                 marker = new google.maps.Marker({
                      position: new google.maps.LatLng(item.latitude,item.longitude),
