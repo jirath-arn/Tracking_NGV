@@ -258,12 +258,12 @@
         });
         
     }
-    
-    // window.setInterval('refresh()', 15000); 
-    //     function refresh() {
-    //         window.initMap();
-    //         console.log(555555555);
-    //         }
+    //refresh page 
+    window.setInterval('refresh()', 15000); 
+        function refresh() {
+            window.location.reload(1);
+            // console.log(555555555);
+            }
 
 
 
