@@ -177,32 +177,50 @@
         // console.log(all_stations);
         
 
-        let json_locations_NGV = JSON.parse('<?php echo json_encode($buses) ?>');
-        // console.log(json_locations_NGV);
+        var json_locations_NGV = JSON.parse('<?php echo json_encode($buses) ?>');
+        var ngv_Curreant = '<?php echo json_encode($array_Curreant_NGV); ?>';
+        var ngv_Destination = '<?php echo json_encode($array_Destination_NGV); ?>';
+        console.log(ngv_Curreant);
+        console.log(ngv_Destination);
+        var marker, i, info;
+        // console.log(json_locations_NGV.data[0].name_route);
+        for (i = 0; i < json_locations_NGV.data.length; i++)  {
+            if ((ngv_Curreant.includes(json_locations_NGV.data[i].name_route)) && (ngv_Destination.includes(json_locations_NGV.data[i].name_route)) ) {
+                
+                var marker, i, info;
+                // console.log(json_locations_NGV.data[0]);
+                
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(json_locations_NGV.data[i].latitude, json_locations_NGV.data[i].longitude),
+                        map: map,
+                        icon: "http://maps.google.com/mapfiles/kml/pal2/icon47.png"
+                    });
+                    info = new google.maps.InfoWindow();
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                           
+                            info.setContent(json_locations_NGV.data[i].name_route);
+                            info.open(map, marker);
+                        }
+                    })(marker, i));
+                    console.log(json_locations_NGV.data[i].license_plate);
+                
+            }
+        }
+        
         
 
-        var marker, i, info;
-        // console.log(json_locations_NGV.data[0]);
-        for (i = 0; i < json_locations_NGV.data.length; i++) {
-            
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(json_locations_NGV.data[i].latitude, json_locations_NGV.data[i].longitude),
-                map: map,
-                icon: "http://maps.google.com/mapfiles/kml/pal2/icon47.png"
-            });
-            info = new google.maps.InfoWindow();
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    info.setContent(json_locations_NGV.data[i].license_plate);
-                    info.open(map, marker);
-                }
-            })(marker, i));
-        }
+        
         
 
         var selectedCurrent = '<?php echo $selectedCurrent ?>';
         var selectedDestination = '<?php echo $selectedDestination ?>';
         var marker , info;
+        var icon = {
+                url: "https://cdn1.iconfinder.com/data/icons/ecommerce-61/48/eccomerce_-_location-128.png", // url
+                scaledSize: new google.maps.Size(50, 50), // scaled size
+                
+            };
         $.each(all_stations.data,function(i,item){
             // console.log(item.name_station);
             if( item.name_station === selectedCurrent ){
@@ -213,10 +231,12 @@
                 });
                 
             }else if( item.name_station === selectedDestination){
+
+                
                 marker = new google.maps.Marker({
                      position: new google.maps.LatLng(item.latitude,item.longitude),
                      map:map,
-                     icon:"http://maps.google.com/mapfiles/kml/pal2/icon10.png"
+                     icon:icon
                      
                 });
                 
@@ -229,6 +249,7 @@
                 });
 
             }
+            
             info = new google.maps.InfoWindow();
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
@@ -255,15 +276,7 @@
 //   });
 // }
 
-// async function asyncCall() {
-//   console.log('calling');
-//   const result = await resolveAfter2Seconds();
- 
-//   console.log(result);
-  // expected output: "resolved"
-// }
 
-// asyncCall();
 
 
     

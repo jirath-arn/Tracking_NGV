@@ -23,7 +23,7 @@ class SearchController extends Controller
 
     public function map_location()
     {
-        $data['buses'] = Bus::orderBy('id', 'desc')->paginate();
+        $data['buses'] = Bus::join('routes', 'buses.route_id', '=', 'routes.id')->paginate();
         $data['stations'] = Station::orderBy('id', 'desc')->paginate();
         $routes = Route::all();
         return view('client.search', $data, compact('routes'));

@@ -15,7 +15,7 @@ class BusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $buses = Bus::all();
         return view('admin.buses.index', compact('buses'));
     }
