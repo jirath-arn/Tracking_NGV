@@ -27,8 +27,8 @@
                             ?>
                            
                             <label for="currentPosition">Current position :</label>
-                            <select id="currentPosition" name="currentPosition" class="form-control" required autofocus>
-                                <option value="" disabled selected hidden>Please Choose...</option>
+                            <select id="currentPosition" name="currentPosition" class="form-control " required autofocus >
+                                <option  value="" disabled selected hidden>Please Choose...</option>
                                 @foreach ($stations as $item)
                                     <option value="{{$item->name_station}}" <?php if($selectedCurrent == "$item->name_station") { echo("selected"); }?>>{{ $item->name_station }}</option>
                                 @endforeach
@@ -36,7 +36,7 @@
                             
                             <label for="destination">Destination :</label>
                             <select id="destination" name="destination" class="form-control" required>
-                                <option value="" disabled selected hidden>Please Choose...</option>
+                                <option  value="" disabled selected hidden>Please Choose...</option>
                                 @foreach ($stations as $item)
                                     <option value="{{$item->name_station}}" <?php if($selectedDestination == "$item->name_station") { echo("selected"); }?>>{{ $item->name_station }}</option>
                                 @endforeach
@@ -176,7 +176,7 @@
         // get data from SearchController.php and append to json data
         var all_stations = JSON.parse('<?php echo json_encode($stations) ?>');
     
-        // console.log(all_stations);
+        console.log(all_stations);
         
 
         var json_locations_NGV = JSON.parse('<?php echo json_encode($buses); ?>');
@@ -200,7 +200,7 @@
                     google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
                            
-                            info.setContent(json_locations_NGV.data[i].name_route);
+                            info.setContent(json_locations_NGV.data[i].name_route + '  ['+json_locations_NGV.data[i].license_plate +']');
                             info.open(map, marker);
                         }
                     })(marker, i));
@@ -219,7 +219,7 @@
                 scaledSize: new google.maps.Size(50, 50), // scaled size
                 
             };
-        $.each(all_stations.data,function(i,item){
+        $.each(all_stations,function(i,item){
             // console.log(item.name_station);
             if( item.name_station === selectedCurrent ){
                 marker = new google.maps.Marker({
