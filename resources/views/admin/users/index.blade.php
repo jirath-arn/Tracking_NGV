@@ -1,4 +1,4 @@
-@extends('layouts.test')
+@extends('layouts.admin')
 @section('content')
 <!-- Create -->
 <div style="margin-bottom: 10px;" class="row">
@@ -35,9 +35,6 @@
                         <th>
                             {{ trans('cruds.user.fields.email_verified_at') }}
                         </th>
-                        <th>
-                            {{ trans('global.actions') }}
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,15 +55,6 @@
                             <td>
                                 {{ $user->email_verified_at ?? '' }}
                             </td>
-                            <td>
-                                <!-- Delete -->
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                </form>
-                            </td>
-
                         </tr>
                     @endforeach
                 </tbody>

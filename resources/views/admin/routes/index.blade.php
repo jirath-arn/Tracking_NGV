@@ -1,4 +1,4 @@
-@extends('layouts.test')
+@extends('layouts.admin')
 @section('content')
 <!-- Create -->
 <div style="margin-bottom: 10px;" class="row">

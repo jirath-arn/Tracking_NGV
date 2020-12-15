@@ -6,6 +6,7 @@ use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -16,33 +17,74 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //$data['stations'] = Station::orderBy('id', 'desc')->paginate();
-        //return view('admin.stations.index', $data);
-
         $user = Auth::user();
-        return view('admin.profiles.show', compact('user'));
+        return view('admin.profiles.edit', compact('user'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editPassword()
+    {
+        $user = Auth::user();
+        return view('admin.passwords.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bus  $bus
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|max:100',
-            'email' => 'required|email|max:255', //|unique:users
         ]);
 
         $user = User::find($id);
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->save();
 
-        //return redirect()->route('admin.buses.index')->with('success', 'Bus has been updated successfully.');
         return redirect()->route('admin.profiles.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request, $id)
+    {
+        $request->validate([
+            'password_new' => 'required|min:8|confirmed',
+        ]);
+
+        $user = User::find($id);
+        $user->password = Hash::make($request->password_new);
+        $user->save();
+
+        return redirect()->route('admin.profiles.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        Auth::logout();
+
+        if ($user->delete()) {
+            return redirect('/login');
+        }
     }
 }
