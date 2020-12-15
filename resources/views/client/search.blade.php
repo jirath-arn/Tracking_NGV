@@ -49,13 +49,79 @@
                 <div class="col-md-12">
                     <div class="jumbotron">
                         <h4 class="h4 mb-3 font-weight-normal">List of bus</h4><br>
-
-                        <div class="text-center">
-                            No data
-                        </div>
+                        <?php
+                            $array_Curreant = array();
+                            $array_Destination = array();
+                            $array_Curreant_NGV = array();
+                            $array_Destination_NGV = array();
+                        ?>
+                        
+                            <?php 
+                                foreach ($routes as $itemRoute){
+                                    foreach ($itemRoute->stations as $itemStation) {     
+                                        if($selectedCurrent == $itemStation->name_station  ){
+                                            array_push($array_Curreant_NGV,  $itemRoute->name_route) ;
+                                            foreach ($itemRoute->stations as $key => $itemStation){
+                                                $new = array_push($array_Curreant, $itemStation->name_station) ; 
+                                            }
+                                        }
+                                    }
+                                    
+                                    foreach ($itemRoute->stations as $itemStation) {  
+                                        if ($selectedDestination == $itemStation->name_station){ 
+                                            array_push( $array_Destination_NGV,  $itemRoute->name_route) ;
+                                            foreach ($itemRoute->stations as $key => $itemStation){
+                                                $new =  array_push($array_Destination,$itemStation->name_station); 
+                                            }
+                                        } 
+                                    }
+                                   
+                                }
+                                // print_r("Array_Curreant : ");
+                                // print_r($array_Curreant );
+                                // print_r($array_Curreant_NGV);
+                                // print_r($array_Destination_NGV);
+                                // print_r("Array_Destination : ");
+                                // print_r($array_Destination);
+                               
+                                if (in_array($selectedDestination,$array_Curreant) && in_array($selectedDestination,$array_Curreant) ) {
+                                    // print_r("Destination : ");
+                                    // print_r($selectedDestination);
+                                
+                                    foreach ($routes as $itemRoute){
+                                    
+                                            if (in_array($itemRoute->name_route, $array_Curreant_NGV) && in_array($itemRoute->name_route, $array_Destination_NGV) ) {
+                                            // print_r($itemStation->name_station)
+                                            // print_r("Array_Curreant : ");
+                                            // print_r($array_Curreant);
+                                    ?>
+                                    <div class="dropdown">
+                                            <button class="dropbtn">{{$itemRoute->name_route}}
+                                                <i class="fa fa-caret-down"></i>
+                                            </button>
+                                            <div class="dropdown-content">
+                                                @foreach ($itemRoute->stations as $itemStation)
+                                                    <a >{{$itemStation->name_station}}</a>  
+                                                @endforeach
+                                            </div>
+                                    </div>
+                                        
+                                    <?php
+                                         
+                                       }  
+                                    }
+                                }
+                                ?> 
+                                 
+                        
+                                
+                                        
+                            
+                        
                     </div>
                 </div>
             </div>
+            
         </div>
 
         <!-- item right -->
@@ -78,6 +144,7 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2A49QewskHrrRb0FnHIVLTRYMcEHQHT4&callback=initMap&libraries=&v=weekly" defer></script>
 <script>
+    
     var map;
 
     var position = {
@@ -92,7 +159,11 @@
     // ]; 
     
    
-    
+    var list_Bus ;
+    function orderBus(){
+        document.getElementById("list_Bus")
+        
+    }
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: position,
@@ -106,7 +177,7 @@
         // console.log(all_stations);
         
 
-        var json_locations_NGV = JSON.parse('<?php echo json_encode($buses) ?>');
+        let json_locations_NGV = JSON.parse('<?php echo json_encode($buses) ?>');
         // console.log(json_locations_NGV);
         
 
@@ -127,6 +198,7 @@
                 }
             })(marker, i));
         }
+        
 
         var selectedCurrent = '<?php echo $selectedCurrent ?>';
         var selectedDestination = '<?php echo $selectedDestination ?>';
@@ -165,9 +237,72 @@
                     }
                 })(marker, i));
         });
+        
     }
+    // window.setInterval('refresh()', 5000); 
+    // function refresh() {
+    //         window.json_locations_NGV;
+    //         console.log(555555555);
+    //         }
    
     // var db_stations = stations ;
     // console.log(db_stations);
+//     function resolveAfter2Seconds() {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve('resolved');
+//     }, 2000);
+//   });
+// }
+
+// async function asyncCall() {
+//   console.log('calling');
+//   const result = await resolveAfter2Seconds();
+ 
+//   console.log(result);
+  // expected output: "resolved"
+// }
+
+// asyncCall();
+
+
+    
 </script>
+<style>
+.dropbtn {
+  background-color: #ffe13a;
+  color: rgb(0, 0, 0);
+  padding: 8px;
+  font-size: 12px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 8px ;
+  font-size:10px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #c22f15;}
+</style>
 @endsection

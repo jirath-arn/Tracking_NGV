@@ -105,7 +105,7 @@ class RouteController extends Controller
     {
         $route->delete();
         //return redirect()->route('admin.routes.index')->with('success', 'Route has been deleted successfully.');
-        
+
         return redirect()->route('admin.routes.index');
     }
 }

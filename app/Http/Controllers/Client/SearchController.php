@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Models\Station;
+use App\Models\Route;
 use App\Models\Bus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,6 +25,7 @@ class SearchController extends Controller
     {
         $data['buses'] = Bus::orderBy('id', 'desc')->paginate();
         $data['stations'] = Station::orderBy('id', 'desc')->paginate();
-        return view('client.search', $data);
+        $routes = Route::all();
+        return view('client.search', $data, compact('routes'));
     }
 }
