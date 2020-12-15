@@ -47,6 +47,7 @@ class RouteController extends Controller
 
         $route = Route::create($request->all());
         $route->stations()->sync($request->input('stations', []));
+
         return redirect()->route('admin.routes.index');
     }
 
@@ -94,6 +95,7 @@ class RouteController extends Controller
         $route->buses()->delete();
         $route->stations()->sync([]);
         $route->delete();
+
         return redirect()->route('admin.routes.index');
     }
 }
