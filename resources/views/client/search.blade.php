@@ -142,6 +142,7 @@
     </div>
 </div>
 
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2A49QewskHrrRb0FnHIVLTRYMcEHQHT4&callback=initMap&libraries=&v=weekly" defer></script>
 <script>
     
@@ -177,11 +178,11 @@
         // console.log(all_stations);
         
 
-        var json_locations_NGV = JSON.parse('<?php echo json_encode($buses) ?>');
+        var json_locations_NGV = JSON.parse('<?php echo json_encode($buses); ?>');
         var ngv_Curreant = '<?php echo json_encode($array_Curreant_NGV); ?>';
         var ngv_Destination = '<?php echo json_encode($array_Destination_NGV); ?>';
-        console.log(ngv_Curreant);
-        console.log(ngv_Destination);
+        // console.log(ngv_Curreant);
+        // console.log(ngv_Destination);
         var marker, i, info;
         // console.log(json_locations_NGV.data[0].name_route);
         for (i = 0; i < json_locations_NGV.data.length; i++)  {
@@ -203,14 +204,11 @@
                             info.open(map, marker);
                         }
                     })(marker, i));
-                    console.log(json_locations_NGV.data[i].license_plate);
+                    // console.log(json_locations_NGV.data[i].license_plate);
                 
             }
         }
-        
-        
 
-        
         
 
         var selectedCurrent = '<?php echo $selectedCurrent ?>';
@@ -260,21 +258,12 @@
         });
         
     }
-    // window.setInterval('refresh()', 5000); 
-    // function refresh() {
-    //         window.json_locations_NGV;
+    
+    // window.setInterval('refresh()', 15000); 
+    //     function refresh() {
+    //         window.initMap();
     //         console.log(555555555);
     //         }
-   
-    // var db_stations = stations ;
-    // console.log(db_stations);
-//     function resolveAfter2Seconds() {
-//   return new Promise(resolve => {
-//     setTimeout(() => {
-//       resolve('resolved');
-//     }, 2000);
-//   });
-// }
 
 
 
