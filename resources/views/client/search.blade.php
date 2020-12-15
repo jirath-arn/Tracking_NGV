@@ -101,11 +101,12 @@
                                             </button>
                                             <div class="dropdown-content">
                                                 @foreach ($itemRoute->stations as $itemStation)
-                                                    <a >{{$itemStation->name_station}}</a>  
+                                                    <a >{{$itemStation->name_station}}</a> 
                                                 @endforeach
                                             </div>
+                                          
                                     </div>
-                                        
+                                  
                                     <?php
                                          
                                        }  
@@ -187,11 +188,10 @@
         // console.log(json_locations_NGV.data[0].name_route);
         for (i = 0; i < json_locations_NGV.data.length; i++)  {
             if ((ngv_Curreant.includes(json_locations_NGV.data[i].name_route)) && (ngv_Destination.includes(json_locations_NGV.data[i].name_route)) ) {
-                
+             
                 var marker, i, info;
                 // console.log(json_locations_NGV.data[0]);
-                
-                    marker = new google.maps.Marker({
+                  marker = new google.maps.Marker({
                         position: new google.maps.LatLng(json_locations_NGV.data[i].latitude, json_locations_NGV.data[i].longitude),
                         map: map,
                         icon: "http://maps.google.com/mapfiles/kml/pal2/icon47.png"
@@ -274,23 +274,28 @@
 .dropbtn {
   background-color: #ffe13a;
   color: rgb(0, 0, 0);
-  padding: 8px;
+  padding: 10px;
   font-size: 12px;
+  min-width: 50px;
   border: none;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
+  margin-top: 5px
+  
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 100%;
+  min-width: 150px;
+  max-height: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  overflow:scroll;
 }
 
 .dropdown-content a {
@@ -299,9 +304,10 @@
   font-size:10px;
   text-decoration: none;
   display: block;
+
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+/* .dropdown-content a:hover {background-color: #ddd;} */
 
 .dropdown:hover .dropdown-content {display: block;}
 
