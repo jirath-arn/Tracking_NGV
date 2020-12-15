@@ -26,7 +26,7 @@ class Route extends Model
 
     public function stations()
     {
-        return $this->belongsToMany(Station::class, 'route_station')->withTimestamps();;
+        return $this->belongsToMany(Station::class);
     }
 
     public function buses()
