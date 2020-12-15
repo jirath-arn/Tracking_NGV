@@ -16,9 +16,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //$data['stations'] = Station::orderBy('id', 'desc')->paginate();
-        //return view('admin.stations.index', $data);
-
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
@@ -53,20 +50,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        //return redirect()->route('admin.stations.index')->with('success', 'Station has been created successfully.');
-        return redirect()->route('admin.users.index');
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Station  $station
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        $user->delete();
-        //return redirect()->route('admin.stations.index')->with('success', 'Station has been deleted successfully.');
         return redirect()->route('admin.users.index');
     }
 }

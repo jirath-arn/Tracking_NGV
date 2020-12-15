@@ -16,9 +16,6 @@ class RouteController extends Controller
      */
     public function index()
     {
-        //$data['routes'] = Route::orderBy('id', 'desc')->paginate();
-        //return view('admin.routes.index', $data);
-
         $routes = Route::all();
         return view('admin.routes.index', compact('routes'));
     }
@@ -47,12 +44,8 @@ class RouteController extends Controller
             'name_route' => 'required|max:10|unique:routes',
             'stations' => 'required',
         ]);
-        $route = new Route;
-        $route->name_route = $request->name_route;
-        //$route->order_of_bus = $request->order_of_bus;
-        //$route->save();
-        //return redirect()->route('admin.routes.index')->with('success', 'Route has been created successfully.');
 
+        $route = Route::create($request->all());
         $route->stations()->sync($request->input('stations', []));
         return redirect()->route('admin.routes.index');
     }
@@ -65,8 +58,6 @@ class RouteController extends Controller
      */
     public function edit(Route $route)
     {
-        //return view('admin.routes.edit', compact('route'));
-
         $stations = Station::all()->pluck('name_station', 'id');
         $route->load('stations');
         return view('admin.routes.edit', compact('stations', 'route'));
@@ -82,15 +73,12 @@ class RouteController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name_route' => 'required|max:10|unique:routes',
+            'name_route' => 'required|max:10',
             'stations' => 'required',
         ]);
-        $route = Route::find($id);
-        $route->name_route = $request->name_route;
-        //$route->order_of_bus = $request->order_of_bus;
-        //$route->save();
-        //return redirect()->route('admin.routes.index')->with('success', 'Route has been updated successfully.');
 
+        $route = Route::find($id);
+        $route->update($request->all());
         $route->stations()->sync($request->input('stations', []));
         return redirect()->route('admin.routes.index');
     }
@@ -103,9 +91,9 @@ class RouteController extends Controller
      */
     public function destroy(Route $route)
     {
+        $route->buses()->delete();
+        $route->stations()->sync([]);
         $route->delete();
-        //return redirect()->route('admin.routes.index')->with('success', 'Route has been deleted successfully.');
-
         return redirect()->route('admin.routes.index');
     }
 }

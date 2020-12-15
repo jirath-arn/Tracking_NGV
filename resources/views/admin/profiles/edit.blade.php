@@ -1,4 +1,4 @@
-@extends('layouts.test')
+@extends('layouts.admin')
 @section('content')
 
 <div class="card">
@@ -38,6 +38,11 @@
                                     {{ trans('cruds.profile.fields.name_helper') }}
                                 </p>
                             </div>
+
+                            <!-- Save -->
+                            <div>
+                                <input class="btn btn-success" type="submit" value="{{ trans('global.save') }}">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -45,30 +50,34 @@
                             {{ trans('cruds.profile.fields.email') }}
                         </th>
                         <td>
-                            <!-- Email -->
-                            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($user) ? $user->email : '') }}">
-                                @if($errors->has('email'))
-                                    <p class="help-block">
-                                        {{ $errors->first('email') }}
-                                    </p>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.profile.fields.email_helper') }}
-                                </p>
-                            </div>
+                            {{ $user->email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.profile.fields.email_verified_at') }}
+                        </th>
+                        <td>
+                            @if (is_null($user->email_verified_at))
+                                <span style="color:RED">Not verified.</span>
+                            @else
+                                <span>$user->email_verified_at</span>
+                            @endif
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-            <!-- Save -->
-            <div>
-                <input class="btn btn-success" type="submit" value="{{ trans('global.save') }}">
-            </div>
         </form>
 
+        <div>
+            <!-- Delete -->
+            <form action="{{ route('admin.profiles.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="submit" class="btn btn-danger" value="{{ trans('global.deleteAccount') }}">
+            </form>
+        </div>
     </div>
 </div>
 @endsection

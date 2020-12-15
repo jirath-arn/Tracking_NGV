@@ -65,7 +65,7 @@
                 </li>
 
                 <!-- Setting -->
-                <li class="nav-item has-treeview {{ request()->is('admin/profiles*') ? 'menu-open' : '' }} {{ request()->is('admin/profiles*') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ request()->is('admin/profiles*') ? 'menu-open' : '' }} {{ request()->is('admin/passwords*') ? 'menu-open' : '' }}">
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="fa-fw fas fa-cog">
 
@@ -91,7 +91,7 @@
 
                         <!-- Change Password -->
                         <li class="nav-item">
-                            <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+                            <a href="{{ url('/admin/passwords') }}" class="nav-link {{ request()->is('admin/passwords') || request()->is('admin/passwords/*') ? 'active' : '' }}">
                                 <i class="fa-fw fas fa-unlock-alt">
 
                                 </i>

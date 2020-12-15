@@ -15,10 +15,7 @@ class BusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //$data['buses'] = Bus::orderBy('id', 'desc')->paginate();
-        //return view('admin.buses.index', $data);
-        
+    {   
         $buses = Bus::all();
         return view('admin.buses.index', compact('buses'));
     }
@@ -31,9 +28,6 @@ class BusController extends Controller
 
     public function create()
     {
-        //$data['routes'] = Route::orderBy('id', 'asc')->paginate();
-        //return view('admin.buses.create', $data);
-
         $routes = Route::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         return view('admin.buses.create', compact('routes'));
     }
@@ -52,14 +46,12 @@ class BusController extends Controller
         ]);
 
         $route = Route::find($request->route_id);
-
         $route->buses()->create([
             'license_plate' => $request->license_plate,
             'latitude' => 14.0695183,
             'longitude' => 100.6032949,
         ]);
 
-        //return redirect()->route('admin.buses.index')->with('success', 'Bus has been created successfully.');
         return redirect()->route('admin.buses.index');
     }
 
@@ -71,9 +63,6 @@ class BusController extends Controller
      */
     public function edit(Bus $bus)
     {
-        //$data['routes'] = Route::orderBy('id', 'asc')->paginate();
-        //return view('admin.buses.edit', $data, compact('bus'));
-
         $routes = Route::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         $bus->load('route');
         return view('admin.buses.edit', compact('routes', 'bus'));
@@ -90,14 +79,13 @@ class BusController extends Controller
     {
         $request->validate([
             'route_id' => 'required',
-            'license_plate' => 'required|max:10|unique:buses',
+            'license_plate' => 'required|max:10',
         ]);
 
         $bus = Bus::find($id);
         $bus->route_id = $request->route_id;
         $bus->license_plate = $request->license_plate;
         $bus->save();
-        //return redirect()->route('admin.buses.index')->with('success', 'Bus has been updated successfully.');
         return redirect()->route('admin.buses.index');
     }
 
@@ -110,7 +98,6 @@ class BusController extends Controller
     public function destroy(Bus $bus)
     {
         $bus->delete();
-        //return redirect()->route('admin.buses.index')->with('success', 'Bus has been deleted successfully.');
         return redirect()->route('admin.buses.index');
     }
 }

@@ -248,4 +248,5 @@ return [
     'no_alerts'                            => 'No alerts',
     'calendar'                             => 'Calendar',
     'messenger'                            => 'Messenger',
+    'deleteAccount'                        => 'Delete Account',
 ];

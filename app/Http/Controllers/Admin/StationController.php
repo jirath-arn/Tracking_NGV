@@ -15,9 +15,6 @@ class StationController extends Controller
      */
     public function index()
     {
-        //$data['stations'] = Station::orderBy('id', 'desc')->paginate();
-        //return view('admin.stations.index', $data);
-
         $stations = Station::all();
         return view('admin.stations.index', compact('stations'));
     }
@@ -52,7 +49,7 @@ class StationController extends Controller
         $station->latitude = $request->latitude;
         $station->longitude = $request->longitude;
         $station->save();
-        //return redirect()->route('admin.stations.index')->with('success', 'Station has been created successfully.');
+
         return redirect()->route('admin.stations.index');
     }
 
@@ -77,7 +74,7 @@ class StationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name_station' => 'required|max:255|unique:stations',
+            'name_station' => 'required|max:255',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
@@ -87,7 +84,7 @@ class StationController extends Controller
         $station->latitude = $request->latitude;
         $station->longitude = $request->longitude;
         $station->save();
-        //return redirect()->route('admin.stations.index')->with('success', 'Station has been updated successfully.');
+
         return redirect()->route('admin.stations.index');
     }
 
@@ -99,8 +96,9 @@ class StationController extends Controller
      */
     public function destroy(Station $station)
     {
+        $station->routes()->sync([]);
         $station->delete();
-        //return redirect()->route('admin.stations.index')->with('success', 'Station has been deleted successfully.');
+
         return redirect()->route('admin.stations.index');
     }
 }
