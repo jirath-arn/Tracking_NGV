@@ -1,17 +1,17 @@
 @extends('layouts.client')
 
 @section('content')
-<div class="container"> <!-- class="container text-center" -->
-    <div class="row">
+<div class="container  "> <!-- class="container text-center" -->
+    <div class="row ">
         <!-- item left -->
-        <div class="col col-lg-4">
-            <div class="row">
+        <div class="col col-lg-4 ">
+            <div class="row ">
                 <div class="col-md-12">
-                    <div class="jumbotron">
+                    <div class="jumbotron ">
                         <form action="{{ url('/search') }}" method="GET">
-                            <!-- logo Thammasat
-                            <img class="mb-4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Emblem_of_Thammasat_University.svg/1200px-Emblem_of_Thammasat_University.svg.png" alt="" width="100" height="100"><br><br>
-                            -->
+                            {{-- logo Thammasat --}}
+                            {{-- <img class="mb-4 center " src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Emblem_of_Thammasat_University.svg/1200px-Emblem_of_Thammasat_University.svg.png" alt="" width="100" height="100" ><br><br> --}}
+                            
                             <?php
                                 if(isset($_GET['currentPosition'])) {
                                     $selectedCurrent = $_GET['currentPosition'];
@@ -46,8 +46,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="jumbotron">
+                <div class="col-md-12  " >
+                    <div class="jumbotron ">
                         <h4 class="h4 mb-3 font-weight-normal">List of bus</h4><br>
                         <?php
                             $array_Curreant = array();
@@ -127,7 +127,7 @@
 
         <!-- item right -->
         <div class="col col-lg-8">
-            <div class="jumbotron">
+            <div class="jumbotron ">
                 
                 <div class="panel panel-default">
                     <div class="panel-heading">Map of Thammasat</div>
@@ -271,6 +271,23 @@
     
 </script>
 <style>
+
+.div {
+  width: 100%;
+  background-color:  #585964;
+  color: rgb(255, 255, 255);
+}
+.divPageBackground {
+  width: 100%;
+  background-color: #1e2246;
+  
+}
+.divNav {
+  width: 100%;
+  background-color: #2a2a4d;
+ 
+  
+}
 .dropbtn {
   background-color: #ffe13a;
   color: rgb(0, 0, 0);

@@ -27,10 +27,10 @@
     </style>
 </head>
 
-<body id="app-layout">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
+<body id="app-layout " class="">
+    <nav class="navbar navbar-default   ">
+        <div class="container  ">
+            <div class="navbar-header  ">
 
                 <!-- Collapsed Hamburger -->
                 <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
@@ -53,7 +53,6 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url('#') }}">NGV Bus</a></li>
                     <li><a href="{{ url('https://tu.ac.th/') }}" target="_blank">Thammasat</a></li>
                 </ul>
             </div>
