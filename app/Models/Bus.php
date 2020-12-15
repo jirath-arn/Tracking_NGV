@@ -10,18 +10,24 @@ class Bus extends Model
 {
     use HasFactory;
 
+    public $table = 'buses';
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
     protected $fillable = [
+        'route_id',
         'license_plate',
         'latitude',
         'longitude',
-    ];
-
-    protected $casts = [
-        'route_id' => 'int',
+        'created_at',
+        'updated_at',
     ];
 
     public function route()
     {
-        return $this->belongsTo(Route::class);
+        return $this->belongsTo(Route::class, 'route_id');
     }
 }

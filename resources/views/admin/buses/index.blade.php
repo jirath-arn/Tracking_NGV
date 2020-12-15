@@ -1,49 +1,97 @@
-@extends('layouts.admin')
-
+@extends('layouts.test')
 @section('content')
-<div class="container mt-2">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>NGV Buses</h2>
-            </div>
-            <div class="pull-right mb-3">
-                <a class="btn btn-success" href="{{ route('admin.buses.create') }}">Create NGV Bus</a>
-            </div>
+<!-- Create -->
+<div style="margin-bottom: 10px;" class="row">
+    <div class="col-lg-12">
+        <a class="btn btn-success" href="{{ route('admin.buses.create') }}">
+            {{ trans('global.add') }} {{ trans('cruds.bus.title_singular') }}
+        </a>
+    </div>
+</div>
+
+<!-- Card -->
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.bus.title_singular') }} {{ trans('global.list') }}
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Bus">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.bus.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.bus.fields.name_route') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.bus.fields.license_plate') }}
+                        </th>
+                        <th>
+                            {{ trans('global.actions') }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($buses as $key => $bus)
+                        <tr data-entry-id="{{ $bus->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $bus->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $bus->route->name_route ?? '' }}
+                            </td>
+                            <td>
+                                {{ $bus->license_plate ?? '' }}
+                            </td>
+                            <td>
+                                <!-- Edit -->
+                                <a class="btn btn-xs btn-info" href="{{ route('admin.buses.edit', $bus->id) }}">
+                                    {{ trans('global.edit') }}
+                                </a>
+
+                                <!-- Delete -->
+                                <form action="{{ route('admin.buses.destroy', $bus->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                </form>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-    
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    
-    <table class="table table-bordered">
-        <tr>
-            <th>No</th>
-            <th>NGV Number</th>
-            <th>License Plate</th>
-            <th width="280px">Action</th>
-        </tr>
-        
-        @foreach ($buses as $bus)
-        <tr>
-            <td>{{ $bus->id }}</td>
-            <td>{{ $bus->route->name_route }}</td>
-            <td>{{ $bus->license_plate }}</td>
-            <td>
-                <form action="{{ route('admin.buses.destroy', $bus->id ) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('admin.buses.edit', $bus->id) }}">Edit</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger ml-2">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-        
-    </table>
-    {!! $buses->links() !!}
 </div>
+@endsection
+@section('scripts')
+@parent
+<script>
+    $(function () {
+  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+  
+  // Delete Table
+
+  $.extend(true, $.fn.dataTable.defaults, {
+    order: [[ 1, 'desc' ]],
+    pageLength: 100,
+  });
+  $('.datatable-Bus:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+})
+
+</script>
 @endsection

@@ -1,63 +1,48 @@
-@extends('layouts.admin')
-
+@extends('layouts.test')
 @section('content')
-<div class="container mt-2">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left mb-2">
-                <h2>Add NGV Bus</h2>
-            </div>
-            <!--<div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('admin.buses.index') }}">Back</a>
-            </div>-->
-        </div>
+
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.create') }} {{ trans('cruds.bus.title_singular') }}
     </div>
-    <br>
 
-    @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
-        </div>
-    @endif
-
-    <form action="{{ route('admin.buses.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>NGV Number:</strong>
-                    <select name="ngv_number" class="form-control">
-                        <option value="" disabled selected hidden>Please Choose...</option>
-                        @foreach ($routes as $route)
-                            <option value="{{$route->id}}">{{ $route->name_route }}</option>
-                        @endforeach
-                    </select>
-
-                    @error('ngv_number')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>License Plate:</strong>
-                    <input type="text" name="license_plate" class="form-control" placeholder="License Plate">
-                    
-                    @error('license_plate')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
-                <br>
+    <div class="card-body">
+        <form action="{{ route('admin.buses.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <!-- Name Route -->
+            <div class="form-group {{ $errors->has('route_id') ? 'has-error' : '' }}">
+                <label for="route_id">{{ trans('cruds.bus.fields.name_route') }}*</label>
+                <select name="route_id" id="route_id" class="form-control select2">
+                    @foreach($routes as $id => $route)
+                        <option value="{{ $id }}" {{ (isset($bus) && $bus->route ? $bus->route->id : old('route_id')) == $id ? 'selected' : '' }}>{{ $route }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('route_id'))
+                    <p class="help-block">
+                        {{ $errors->first('route_id') }}
+                    </p>
+                @endif
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success ml-3">Create</button>
-                    <a class="btn btn-danger ml-3" href="{{ route('admin.buses.index') }}">Cancel</a>
-                </div>
+            <!-- License Plate -->
+            <div class="form-group {{ $errors->has('license_plate') ? 'has-error' : '' }}">
+                <label for="license_plate">{{ trans('cruds.bus.fields.license_plate') }}*</label>
+                <input type="text" id="license_plate" name="license_plate" class="form-control" value="{{ old('license_plate', isset($bus) ? $bus->license_plate : '') }}">
+                @if($errors->has('license_plate'))
+                    <p class="help-block">
+                        {{ $errors->first('license_plate') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.bus.fields.license_plate_helper') }}
+                </p>
             </div>
-        </div>
-    </form>
+
+            <!-- Save -->
+            <div>
+                <input class="btn btn-success" type="submit" value="{{ trans('global.save') }}">
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

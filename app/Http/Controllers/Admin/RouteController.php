@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Route;
+use App\Models\Station;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,8 +16,11 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $data['routes'] = Route::orderBy('id', 'desc')->paginate();
-        return view('admin.routes.index', $data);
+        //$data['routes'] = Route::orderBy('id', 'desc')->paginate();
+        //return view('admin.routes.index', $data);
+
+        $routes = Route::all();
+        return view('admin.routes.index', compact('routes'));
     }
 
     /**
@@ -27,7 +31,8 @@ class RouteController extends Controller
 
     public function create()
     {
-        return view('admin.routes.create');
+        $stations = Station::all()->pluck('name_station', 'id');
+        return view('admin.routes.create', compact('stations'));
     }
 
     /**
@@ -39,25 +44,17 @@ class RouteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_route' => 'required',
-            'order_of_bus' => 'required',
+            'name_route' => 'required|max:10|unique:routes',
+            'stations' => 'required',
         ]);
         $route = new Route;
         $route->name_route = $request->name_route;
-        $route->order_of_bus = $request->order_of_bus;
-        $route->save();
-        return redirect()->route('admin.routes.index')->with('success', 'Route has been created successfully.');
-    }
+        //$route->order_of_bus = $request->order_of_bus;
+        //$route->save();
+        //return redirect()->route('admin.routes.index')->with('success', 'Route has been created successfully.');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Route  $route
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Route $route)
-    {
-        return view('admin.routes.show', compact('route'));
+        $route->stations()->sync($request->input('stations', []));
+        return redirect()->route('admin.routes.index');
     }
 
     /**
@@ -68,7 +65,11 @@ class RouteController extends Controller
      */
     public function edit(Route $route)
     {
-        return view('admin.routes.edit', compact('route'));
+        //return view('admin.routes.edit', compact('route'));
+
+        $stations = Station::all()->pluck('name_station', 'id');
+        $route->load('stations');
+        return view('admin.routes.edit', compact('stations', 'route'));
     }
 
     /**
@@ -81,14 +82,17 @@ class RouteController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name_route' => 'required',
-            'order_of_bus' => 'required',
+            'name_route' => 'required|max:10|unique:routes',
+            'stations' => 'required',
         ]);
         $route = Route::find($id);
         $route->name_route = $request->name_route;
-        $route->order_of_bus = $request->order_of_bus;
-        $route->save();
-        return redirect()->route('admin.routes.index')->with('success', 'Route has been updated successfully.');
+        //$route->order_of_bus = $request->order_of_bus;
+        //$route->save();
+        //return redirect()->route('admin.routes.index')->with('success', 'Route has been updated successfully.');
+
+        $route->stations()->sync($request->input('stations', []));
+        return redirect()->route('admin.routes.index');
     }
 
     /**
@@ -100,6 +104,8 @@ class RouteController extends Controller
     public function destroy(Route $route)
     {
         $route->delete();
-        return redirect()->route('admin.routes.index')->with('success', 'Route has been deleted successfully.');
+        //return redirect()->route('admin.routes.index')->with('success', 'Route has been deleted successfully.');
+        
+        return redirect()->route('admin.routes.index');
     }
 }

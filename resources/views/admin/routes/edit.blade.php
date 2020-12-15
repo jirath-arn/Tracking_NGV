@@ -1,59 +1,55 @@
-@extends('layouts.admin')
-
+@extends('layouts.test')
 @section('content')
-<div class="container mt-2">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit Route</h2>
-            </div>
-            <!--<div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('admin.buses.index') }}" enctype="multipart/form-data">Back</a>
-            </div>-->
-        </div>
+
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.edit') }} {{ trans('cruds.route.title_singular') }}
     </div>
-    <br>
 
-    @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
-        </div>
-    @endif
-
-    <form action="{{ route('admin.routes.update',$route->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Name Route:</strong>
-                    <input type="text" name="name_route" value="{{ $route->name_route }}" class="form-control" placeholder="Name Route">
-
-                    @error('name_route')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
+    <div class="card-body">
+        <form action="{{ route('admin.routes.update', $route->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <!-- Name Route -->
+            <div class="form-group {{ $errors->has('name_route') ? 'has-error' : '' }}">
+                <label for="name_route">{{ trans('cruds.route.fields.name_route') }}*</label>
+                <input type="text" id="name_route" name="name_route" class="form-control" value="{{ old('name_route', isset($route) ? $route->name_route : '') }}">
+                @if($errors->has('name_route'))
+                    <p class="help-block">
+                        {{ $errors->first('name_route') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.route.fields.name_route_helper') }}
+                </p>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Order Of Bus:</strong>
-                    <input type="text" name="order_of_bus" value="{{ $route->order_of_bus }}" class="form-control" placeholder="Order Of Bus">
-
-                    @error('order_of_bus')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
-                <br>
+            <!-- Order of Stations -->
+            <div class="form-group {{ $errors->has('stations') ? 'has-error' : '' }}">
+                <label for="stations">{{ trans('cruds.route.fields.order_of_stations') }}*
+                    <span class="btn btn-info btn-xs select-all">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all">{{ trans('global.deselect_all') }}</span></label>
+                <select name="stations[]" id="stations" class="form-control select2" multiple="multiple">
+                    @foreach($stations as $id => $stations)
+                        <option value="{{ $id }}" {{ (in_array($id, old('stations', [])) || isset($route) && $route->stations->contains($id)) ? 'selected' : '' }}>{{ $stations }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('stations'))
+                    <p class="help-block">
+                        {{ $errors->first('stations') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.route.fields.order_of_stations_helper') }}
+                </p>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success ml-3">Edit</button>
-                    <a class="btn btn-danger ml-3" href="{{ route('admin.routes.index') }}" enctype="multipart/form-data">Cancel</a>
-                </div>
+            <!-- Save -->
+            <div>
+                <input class="btn btn-success" type="submit" value="{{ trans('global.save') }}">
             </div>
-        </div>
-    </form>
+        </form>
+
+    </div>
 </div>
 @endsection
